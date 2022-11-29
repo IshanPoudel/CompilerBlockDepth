@@ -24,6 +24,7 @@
 
 # remove anything inside the ' ' and the comma. 
 
+# Whenever I remove anything , I need  to replace the commans with the same amount of blank characters.
 
 def removeBetweenComma(x):
 
@@ -50,40 +51,24 @@ def removeBetweenComma(x):
         words_to_remove.append(x[left:right+1])
 
     for word in words_to_remove:
+        # Replace the word with equal amount of characters.
         word_size = len(word)
         blank=""
         for i in range(word_size):
             blank=blank+" "
         x = x.replace(word , blank)
-        
     
     return x
 
 def removeComment(x):
-    #  If // is at the beginning , replace it with a new line 
     
     index = len(x)
-    
-    
-    if x[0]=='/' and x[1]=='/':  #If it starts with a comment
-        blank = ""
-        for i in range(len(x)):
-            blank=blank+"~"
-
-       
-        return blank
-
     for i in range(len(x)-2):
         # if you see a // that means disregard everything after that.
         if x[i]=='/' and x[i+1]=='/':
             index = i
             break
-    # Replace everything after // with equal amount of blank spaces.
-    blank = ""
-    for i in range (index , len(x)):
-        blank = blank + "~"
-    x = x[:index]+blank
-    
+    x = x[:index]
     return x
 
 def removeMultiLine(x):
@@ -105,16 +90,9 @@ def removeMultiLine(x):
         
 
 
-
+    
     for word in words_to_remove:
-        blank=""
-        # on the word check if there is a \n
-        for j in range(word.count("\n")):
-            blank=blank+"\n"
-        for i in range(len(word)):
-            blank=blank+"~"
-
-        x=x.replace(word , blank)
+        x=x.replace(word , "")
 
     return x
 
@@ -125,23 +103,20 @@ f = open("sample.txt", "r")
 lines = f.readlines()
 out=""
 
-
-#1. Prep the file for callling removebetweenComma and removeMultiline. They both require a single string.
 for line in lines:
-    
     line = removeComment(line)
     out = out + line.rstrip() + "SEPARATOR"
 
-out = removeBetweenComma(out)
-out = removeMultiLine(out)
 
-# print(out)
+out = removeBetweenComma(lines)
+out = removeMultiLine(lines)
 
-#2.Tracking variables
-#Keeps track of all {
+print(out)
+
+# Keeps track of all curlist it sees.
 curlyList=[]
 
-#Keeps track of all  curly brace tuples.
+#Keeps track of all corresponding curly brace tuples.
 tracker = []
 
 #Keeps track of error message to be shown.
@@ -149,9 +124,12 @@ error = ""
 
 
 
-#3. Make our new output  a single string
+
 
 out = out.split("SEPARATOR")
+# Make it all one line again.
+
+print(out)
 
 line = ""
 for l in out:
@@ -161,15 +139,9 @@ for l in out:
         line = line + l +'\n'
 
 
-#Have it all in one line again.
-# print(line)
+print(line)
 
-
-
-
-#4. check where all the new lines are. 
-
-
+#check where all the new lines are. 
 
 newLine_indexes=[]
 
@@ -177,31 +149,12 @@ for i in range(len(line)):
     if line[i]=='\n':
         newLine_indexes.append(i)
 
+print("The new lines are at")
+print(newLine_indexes)
 
 
-prev_index = 0
-# 5. iterate through the line
+# iterate through the line
 for i in range(len(line)):
-    
-    prev_line = 0
-    # if i in newLine_indexes :
-    #     print( len(curlyList)  )
-    #     print(line[prev_line:i])
-    #     prev_line=i
-    #     newLine_indexes.remove(i)
-    
-    if i in newLine_indexes:
-
-        size = len(curlyList)
-        size = str(size)
-        
-
-        print(  size + " " + line[prev_index+1 : i].replace('~' , " ") )
-       
-        # print(i)
-        prev_index=i
-        
-    
     if line[i]=='{':
         curlyList.append(i)
     if line[i] == '}':
@@ -215,23 +168,16 @@ for i in range(len(line)):
     
 
 # //Keep track of all the end points and then split based on that.
-# if curlyList is not None:
-#     print("You have a EOF error. End of line expected at line %d" , curlyList[0])
-    #Find the nearest line with the help of newline Index and work from there
+
 
 print(curlyList)
 print(tracker)
 
-print("The new lines are at")
-print(newLine_indexes)
 
+print(lines)
+# out = out.split("SEPARATOR")
+print(error)
 
+# //Have a stack for { and only pop when you see a }
 
-#How to print the final output. 
-
-# For each line when you see
-
-
-#sort the array .
-tracker = tracker.sort()
 

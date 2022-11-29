@@ -1,17 +1,25 @@
-import blah;
-class Foo
-{
-     void Foo()
-    {
-       System.out.println("braces are fun! {{{{{");    // ignored
-       if (condition)
-       {
-          // also ignored: {
-          int a = 1;
-          // as is this: }         
-       } // what if this were on one line?  }}}
-    }
-}
-/* This is a comment that needs to be removed */
+///This is a comment
+void foo{
+   This is a comment. 
+   {
+      tHIS IS A BRACE //ABSF
 
-//end of program
+   }
+   
+
+   {
+      tHIS IS A ANOTHER BRACE
+      printf("ISHAN")
+      /* a comment 
+      which must be removed. */
+      {
+         This is a nested loop
+      }
+
+   }
+}
+//Thus a comment. 
+This is outdide the score
+/*tHis is another multiline comment. 
+from me. */
+Hi

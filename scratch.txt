@@ -1,0 +1,24 @@
+
+void foo{
+   This is a comment.
+   {
+      tHIS IS A BRACE ~~~~~~~
+
+   }
+
+   {
+      tHIS IS A ANOTHER BRACE
+      printf(       )
+      
+
+      {
+         This is a nested loop
+      }
+
+   }
+}
+
+This is outdide the score
+
+
+Hi
