@@ -24,6 +24,7 @@
 
 # remove anything inside the ' ' and the comma. 
 
+master_tracker = []
 
 def removeBetweenComma(x):
 
@@ -50,12 +51,13 @@ def removeBetweenComma(x):
         words_to_remove.append(x[left:right+1])
 
     for word in words_to_remove:
+        # In each word , track the index of the curly list.
         word_size = len(word)
         blank=""
         for i in range(word_size):
             blank=blank+" "
         x = x.replace(word , blank)
-        
+
     
     return x
 
@@ -190,20 +192,27 @@ for i in range(len(line)):
     #     prev_line=i
     #     newLine_indexes.remove(i)
     
+    
+        
+    
+    if line[i]=='{':
+        curlyList.append(i)
+
     if i in newLine_indexes:
 
         size = len(curlyList)
         size = str(size)
         
-
-        print(  size + " " + line[prev_index+1 : i].replace('~' , " ") )
+        if "}" in line[prev_index+1:i+1] :
+            size = int(size)+1
+            size = str(size)
+            print(size + " " + line[prev_index+1 : i+1].replace('~' , " ") )
+        else:
+            print(  size + " " + line[prev_index+1 : i+1].replace('~' , " ") )
        
         # print(i)
         prev_index=i
-        
-    
-    if line[i]=='{':
-        curlyList.append(i)
+
     if line[i] == '}':
         if curlyList is None:
             # You have an error. Your } does not match with any.
@@ -212,6 +221,8 @@ for i in range(len(line)):
             
             # Store the value in tracker.
             tracker.append( (curlyList.pop() , i) )
+    
+    
     
 
 # //Keep track of all the end points and then split based on that.
